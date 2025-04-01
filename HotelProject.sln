@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.DataAccessLaye
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.BusinessLayer", "Api\HotelProject.BusinessLayer\HotelProject.BusinessLayer.csproj", "{ADF10563-88E2-4A38-B707-248801C16C5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.DtoLayer", "Api\HotelProject.DtoLayer\HotelProject.DtoLayer.csproj", "{9CB0CA63-E20C-407C-8CA7-3A0ED56A8417}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.WebUI", "Frontend\HotelProject.WebUI\HotelProject.WebUI.csproj", "{348C9058-B7F1-4DCB-B479-331FDB63AF91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{ADF10563-88E2-4A38-B707-248801C16C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADF10563-88E2-4A38-B707-248801C16C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADF10563-88E2-4A38-B707-248801C16C5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CB0CA63-E20C-407C-8CA7-3A0ED56A8417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CB0CA63-E20C-407C-8CA7-3A0ED56A8417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CB0CA63-E20C-407C-8CA7-3A0ED56A8417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CB0CA63-E20C-407C-8CA7-3A0ED56A8417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{348C9058-B7F1-4DCB-B479-331FDB63AF91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{348C9058-B7F1-4DCB-B479-331FDB63AF91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{348C9058-B7F1-4DCB-B479-331FDB63AF91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{348C9058-B7F1-4DCB-B479-331FDB63AF91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +60,8 @@ Global
 		{0986DCF1-F957-4422-9EFC-83FE5B905511} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{4D572FB1-B54D-4D66-8800-013850D2F077} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{ADF10563-88E2-4A38-B707-248801C16C5E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9CB0CA63-E20C-407C-8CA7-3A0ED56A8417} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{348C9058-B7F1-4DCB-B479-331FDB63AF91} = {BAF5246D-2923-4567-84DB-C354CD2786A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97FE9D95-8A73-4525-BBF0-AC8A4CE60F39}
