@@ -1,4 +1,5 @@
-using static HotelProject.DataAccessLayer.Concrete.DbContextServiceExt;
+using HotelProject.DataAccessLayer.Concrete.Database;
+using static HotelProject.DataAccessLayer.Concrete.Database.DbContextServiceExt;
 
 var builder = WebApplication.CreateBuilder(args);
 
