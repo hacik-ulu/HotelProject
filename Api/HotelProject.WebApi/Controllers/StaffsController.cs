@@ -59,3 +59,5 @@ namespace HotelProject.WebApi.Controllers
         }
     }
 }
+
+//Dtoya cevir.

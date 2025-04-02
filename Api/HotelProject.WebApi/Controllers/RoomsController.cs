@@ -1,4 +1,6 @@
-﻿using HotelProject.BusinessLayer.Abstract;
+﻿using AutoMapper;
+using HotelProject.BusinessLayer.Abstract;
+using HotelProject.DtoLayer.Room;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +12,19 @@ namespace HotelProject.WebApi.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly IRoomService _roomService;
-        public RoomsController(IRoomService roomService)
+        private readonly IMapper _mapper;
+        public RoomsController(IRoomService roomService, IMapper mapper)
         {
             _roomService = roomService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult RoomList()
         {
-            var values = _roomService.TGetAll();
-            return Ok(values);
+            var rooms = _roomService.TGetAll();
+            var roomDtos = _mapper.Map<List<ResultRoomDto>>(rooms);
+            return Ok(roomDtos);
         }
 
         [HttpGet("{id}")]
@@ -30,25 +35,18 @@ namespace HotelProject.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateRoom(Room room)
+        public IActionResult CreateRoom(CreateRoomDto createRoomDto)
         {
-            _roomService.TAdd(new Room
-            {
-                BathCount = room.BathCount,
-                BedCount = room.BedCount,
-                CoverImage = room.CoverImage,
-                Description = room.Description,
-                Price = room.Price,
-                RoomNumber = room.RoomNumber,
-                Wifi = room.Wifi,
-                Title = room.Title
-            });
+            var room = _mapper.Map<Room>(createRoomDto);
+            _roomService.TAdd(room);
             return Ok("Oda başarıyla oluşturuldu!");
+
         }
 
         [HttpPut]
-        public IActionResult UpdateRoom(Room room)
+        public IActionResult UpdateRoom(UpdateRoomDto updateRoomDto)
         {
+            var room = _mapper.Map<Room>(updateRoomDto);
             _roomService.TUpdate(room);
             return Ok("Oda bilgileri başarıyla güncellendi!");
         }

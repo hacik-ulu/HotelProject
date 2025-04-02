@@ -1,5 +1,6 @@
 using HotelProject.DataAccessLayer.Concrete.Database;
 using HotelProject.WebApi.Extensions;
+using System.Reflection;
 using static HotelProject.DataAccessLayer.Concrete.Database.DbContextServiceExt;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContextServices(builder.Configuration);
 builder.Services.AddBusinessServices(builder.Configuration);
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());  
 
 
 builder.Services.AddControllers();
