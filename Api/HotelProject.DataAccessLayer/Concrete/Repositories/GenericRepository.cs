@@ -10,7 +10,7 @@ namespace HotelProject.DataAccessLayer.Concrete.Repositories
 {
     public class GenericRepository<T> : IGenericDal<T> where T : class
     {
-        private readonly Context _context;
+        protected readonly Context _context;
         public GenericRepository(Context context)
         {
             _context = context;

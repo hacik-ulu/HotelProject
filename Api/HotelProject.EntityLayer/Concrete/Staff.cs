@@ -14,9 +14,5 @@ namespace HotelProject.EntityLayer.Concrete
         public string SocialMediaIcon1 { get; set; }
         public string SocialMediaIcon2 { get; set; }
         public string SocialMediaIcon3 { get; set; }
-
-        public int StaffDetailId { get; set; }
-        public StaffDetail StaffDetail { get; set; }
-
     }
 }

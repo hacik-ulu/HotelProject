@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -45,23 +44,20 @@ namespace HotelProject.DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StaffDetails",
+                name: "Staffs",
                 columns: table => new
                 {
-                    StaffDetailId = table.Column<int>(type: "int", nullable: false)
+                    StaffId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Department = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WorkingStatus = table.Column<bool>(type: "bit", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    SocialMediaIcon1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SocialMediaIcon2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SocialMediaIcon3 = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StaffDetails", x => x.StaffDetailId);
+                    table.PrimaryKey("PK_Staffs", x => x.StaffId);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,36 +88,6 @@ namespace HotelProject.DataAccessLayer.Migrations
                 {
                     table.PrimaryKey("PK_Testimonials", x => x.TestimonialId);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Staffs",
-                columns: table => new
-                {
-                    StaffId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SocialMediaIcon1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SocialMediaIcon2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SocialMediaIcon3 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StaffDetailId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Staffs", x => x.StaffId);
-                    table.ForeignKey(
-                        name: "FK_Staffs_StaffDetails_StaffDetailId",
-                        column: x => x.StaffDetailId,
-                        principalTable: "StaffDetails",
-                        principalColumn: "StaffDetailId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Staffs_StaffDetailId",
-                table: "Staffs",
-                column: "StaffDetailId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -140,9 +106,6 @@ namespace HotelProject.DataAccessLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Testimonials");
-
-            migrationBuilder.DropTable(
-                name: "StaffDetails");
         }
     }
 }
