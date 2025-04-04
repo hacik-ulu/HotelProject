@@ -1,44 +1,43 @@
-﻿using HotelProject.WebUI.Dtos.StaffDtos;
+﻿using HotelProject.WebUI.Dtos.TestimonialDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace HotelProject.WebUI.Controllers
 {
-    public class StaffController : Controller
+    public class TestimonialController : Controller
     {
         private readonly HttpClient _httpClient;
-        public StaffController(HttpClient httpClient, IConfiguration configuration)
+        public TestimonialController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(configuration["ApiSettings:BaseUrl"]);
         }
-
         public async Task<IActionResult> Index()
         {
-            var response = await _httpClient.GetAsync("Staffs");
+            var response = await _httpClient.GetAsync("Testimonials");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultStaffDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(jsonData);
                 return View(values);
             }
             return View();
         }
 
         [HttpGet]
-        public IActionResult AddStaff()
+        public IActionResult AddTestimonial()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddStaff(CreateStaffDto createStaffDto)
+        public async Task<IActionResult> AddTestimonial(CreateTestimonialDto createTestimonialDto)
         {
-            var jsonData = JsonConvert.SerializeObject(createStaffDto);
+            var jsonData = JsonConvert.SerializeObject(createTestimonialDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("Staffs", content);
+            var response = await _httpClient.PostAsync("Testimonials", content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -47,9 +46,9 @@ namespace HotelProject.WebUI.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DeleteStaff(int id)
+        public async Task<IActionResult> DeleteTestimonial(int id)
         {
-            var response = await _httpClient.DeleteAsync($"Staffs/{id}");
+            var response = await _httpClient.DeleteAsync($"Testimonials/{id}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -59,13 +58,13 @@ namespace HotelProject.WebUI.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> UpdateStaff(int id)
+        public async Task<IActionResult> UpdateTestimonial(int id)
         {
-            var response = await _httpClient.GetAsync($"Staffs/{id}");
+            var response = await _httpClient.GetAsync($"Testimonials/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateStaffDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<UpdateTestimonialDto>(jsonData);
                 return View(values);
             }
 
@@ -73,12 +72,12 @@ namespace HotelProject.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateStaff(UpdateStaffDto updateStaffDto)
+        public async Task<IActionResult> UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
         {
-            var jsonData = JsonConvert.SerializeObject(updateStaffDto);
+            var jsonData = JsonConvert.SerializeObject(updateTestimonialDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PutAsync($"Staffs", content);
+            var response = await _httpClient.PutAsync($"Testimonials", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -87,8 +86,5 @@ namespace HotelProject.WebUI.Controllers
 
             return View();
         }
-
-
-
     }
 }
