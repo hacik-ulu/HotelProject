@@ -5,6 +5,9 @@ using static HotelProject.DataAccessLayer.Concrete.Database.DbContextServiceExt;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS Policy
+builder.Services.AddCustomCors();
+
 // Add services to the container.
 builder.Services.AddDbContextServices(builder.Configuration);
 builder.Services.AddBusinessServices(builder.Configuration);
@@ -25,6 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("HotelApiCors");
 app.UseAuthorization();
 
 app.MapControllers();
