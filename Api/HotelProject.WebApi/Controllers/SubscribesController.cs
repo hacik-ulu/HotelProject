@@ -27,7 +27,7 @@ namespace HotelProject.WebApi.Controllers
             return Ok(dtoValues);
         }
 
-        [HttpGet("GetSubscribeById")]
+        [HttpGet("{id}")]
         public IActionResult GetSubscribeById(int id)
         {
             var values = _subscribeService.TGetById(id);
@@ -51,7 +51,7 @@ namespace HotelProject.WebApi.Controllers
             return Ok("Abonelik bilgileri başarıyla güncellendi!");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteSubscribe(int id)
         {
             var values = _subscribeService.TGetById(id);

@@ -27,7 +27,7 @@ namespace HotelProject.WebApi.Controllers
             return Ok(dtoValues);
         }
 
-        [HttpGet("GetServiceById")]
+        [HttpGet("{id}")]
         public IActionResult GetServiceById(int id)
         {
             var values = _serviceService.TGetById(id);
@@ -51,7 +51,7 @@ namespace HotelProject.WebApi.Controllers
             return Ok("Hizmet bilgileri başarıyla güncellendi!");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteService(int id)
         {
             var values = _serviceService.TGetById(id);

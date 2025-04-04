@@ -1,0 +1,24 @@
+﻿@model CreateStaffDto
+@{
+    ViewData["Title"] = "AddStaff";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<form method="post">
+    <label>Personel Adı</label>
+    <input type="text" asp-for="Name" class="form-control" />
+    <br />
+    <label>Personel Unvan</label>
+    <input type="text" asp-for="Title" class="form-control" />
+    <br />
+    <label>Personel Sosyal Medya Hesabı 1</label>
+    <input type="text" asp-for="SocialMediaIcon1" class="form-control" />
+    <br />
+    <label>Personel Sosyal Medya Hesabı 2</label>
+    <input type="text" asp-for="SocialMediaIcon2" class="form-control" />
+    <br />
+    <label>Personel Sosyal Medya Hesabı 3</label>
+    <input type="text" asp-for="SocialMediaIcon3" class="form-control" />
+    <br />
+    <button class="btn btn-primary">Personeli Ekle</button>
+</form>

@@ -27,7 +27,7 @@ namespace HotelProject.WebApi.Controllers
             return Ok(dtoValues);
         }
 
-        [HttpGet("GetTestimonialById")]
+        [HttpGet("{id}")]
         public IActionResult GetTestimonialById(int id)
         {
             var values = _testimonialService.TGetById(id);
@@ -51,7 +51,7 @@ namespace HotelProject.WebApi.Controllers
             return Ok("Referans bilgileri başarıyla güncellendi!");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteTestimonial(int id)
         {
             var values = _testimonialService.TGetById(id);
