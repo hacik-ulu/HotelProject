@@ -23,31 +23,39 @@ namespace HotelProject.WebApi.Controllers
         public IActionResult SubscribeList()
         {
             var values = _subscribeService.TGetAll();
-            var dtoValues = _mapper.Map<List<ResultSubscribeDto>>(values);
-            return Ok(dtoValues);
+            var result = _mapper.Map<List<ResultSubscribeDto>>(values);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetSubscribeById(int id)
         {
             var values = _subscribeService.TGetById(id);
-            var dtoValue = _mapper.Map<ResultSubscribeDto>(values);
-            return Ok(dtoValue);
+            var result = _mapper.Map<ResultSubscribeDto>(values);
+            return Ok(result);
         }
 
         [HttpPost]
         public IActionResult CreateSubscribe(CreateSubscribeDto createSubscribeDto)
         {
-            var subscribe = _mapper.Map<Subscribe>(createSubscribeDto);
-            _subscribeService.TAdd(subscribe);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var values = _mapper.Map<Subscribe>(createSubscribeDto);
+            _subscribeService.TAdd(values);
             return Ok("Abonelik başarıyla oluşturuldu!");
         }
 
         [HttpPut]
         public IActionResult UpdateSubscribe(UpdateSubscribeDto updateSubscribeDto)
         {
-            var subscribe = _mapper.Map<Subscribe>(updateSubscribeDto);
-            _subscribeService.TUpdate(subscribe);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var values = _mapper.Map<Subscribe>(updateSubscribeDto);
+            _subscribeService.TUpdate(values);
             return Ok("Abonelik bilgileri başarıyla güncellendi!");
         }
 

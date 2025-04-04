@@ -22,9 +22,9 @@ namespace HotelProject.WebApi.Controllers
         [HttpGet]
         public IActionResult RoomList()
         {
-            var rooms = _roomService.TGetAll();
-            var roomDtos = _mapper.Map<List<ResultRoomDto>>(rooms);
-            return Ok(roomDtos);
+            var values = _roomService.TGetAll();
+            var result = _mapper.Map<List<ResultRoomDto>>(values);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -37,8 +37,12 @@ namespace HotelProject.WebApi.Controllers
         [HttpPost]
         public IActionResult CreateRoom(CreateRoomDto createRoomDto)
         {
-            var room = _mapper.Map<Room>(createRoomDto);
-            _roomService.TAdd(room);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var values = _mapper.Map<Room>(createRoomDto);
+            _roomService.TAdd(values);
             return Ok("Oda başarıyla oluşturuldu!");
 
         }
@@ -46,8 +50,12 @@ namespace HotelProject.WebApi.Controllers
         [HttpPut]
         public IActionResult UpdateRoom(UpdateRoomDto updateRoomDto)
         {
-            var room = _mapper.Map<Room>(updateRoomDto);
-            _roomService.TUpdate(room);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var values = _mapper.Map<Room>(updateRoomDto);
+            _roomService.TUpdate(values);
             return Ok("Oda bilgileri başarıyla güncellendi!");
         }
 

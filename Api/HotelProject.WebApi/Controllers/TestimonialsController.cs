@@ -23,31 +23,39 @@ namespace HotelProject.WebApi.Controllers
         public IActionResult TestimonialList()
         {
             var values = _testimonialService.TGetAll();
-            var dtoValues = _mapper.Map<List<ResultTestimonialDto>>(values);
-            return Ok(dtoValues);
+            var result = _mapper.Map<List<ResultTestimonialDto>>(values);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetTestimonialById(int id)
         {
             var values = _testimonialService.TGetById(id);
-            var dtoValue = _mapper.Map<ResultTestimonialDto>(values);
-            return Ok(dtoValue);
+            var result = _mapper.Map<ResultTestimonialDto>(values);
+            return Ok(result);
         }
 
         [HttpPost]
         public IActionResult CreateTestimonial(CreateTestimonialDto createTestimonialDto)
         {
-            var testimonial = _mapper.Map<Testimonial>(createTestimonialDto);
-            _testimonialService.TAdd(testimonial);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var values = _mapper.Map<Testimonial>(createTestimonialDto);
+            _testimonialService.TAdd(values);
             return Ok("Referans başarıyla oluşturuldu!");
         }
 
         [HttpPut]
         public IActionResult UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
         {
-            var testimonial = _mapper.Map<Testimonial>(updateTestimonialDto);
-            _testimonialService.TUpdate(testimonial);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var values = _mapper.Map<Testimonial>(updateTestimonialDto);
+            _testimonialService.TUpdate(values);
             return Ok("Referans bilgileri başarıyla güncellendi!");
         }
 

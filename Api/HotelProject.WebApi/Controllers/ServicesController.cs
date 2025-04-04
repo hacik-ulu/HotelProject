@@ -23,21 +23,25 @@ namespace HotelProject.WebApi.Controllers
         public IActionResult ServiceList()
         {
             var values = _serviceService.TGetAll();
-            var dtoValues = _mapper.Map<List<ResultServiceDto>>(values);
-            return Ok(dtoValues);
+            var result = _mapper.Map<List<ResultServiceDto>>(values);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetServiceById(int id)
         {
             var values = _serviceService.TGetById(id);
-            var dtoValue = _mapper.Map<ResultServiceDto>(values);
-            return Ok(dtoValue);
+            var result = _mapper.Map<ResultServiceDto>(values);
+            return Ok(result);
         }
 
         [HttpPost]
         public IActionResult CreateService(CreateServiceDto createServiceDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             var service = _mapper.Map<Service>(createServiceDto);
             _serviceService.TAdd(service);
             return Ok("Hizmet başarıyla oluşturuldu!");
@@ -46,6 +50,10 @@ namespace HotelProject.WebApi.Controllers
         [HttpPut]
         public IActionResult UpdateService(UpdateServiceDto updateServiceDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             var service = _mapper.Map<Service>(updateServiceDto);
             _serviceService.TUpdate(service);
             return Ok("Hizmet bilgileri başarıyla güncellendi!");
