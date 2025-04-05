@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HotelProject.DtoLayer.Room;
-using HotelProject.DtoLayer.Service;
+using HotelProject.DtoLayer.ServiceDto;
 using HotelProject.DtoLayer.StaffDto;
 using HotelProject.DtoLayer.SubscribeDto;
 using HotelProject.DtoLayer.TestimonialDto;

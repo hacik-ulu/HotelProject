@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelProject.DtoLayer.Service
+namespace HotelProject.DtoLayer.ServiceDto
 {
     public class UpdateServiceDto
     {

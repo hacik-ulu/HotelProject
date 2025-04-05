@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HotelProject.BusinessLayer.Abstract;
-using HotelProject.DtoLayer.Service;
+using HotelProject.DtoLayer.ServiceDto;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 

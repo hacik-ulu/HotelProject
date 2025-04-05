@@ -1,6 +1,7 @@
 ﻿using HotelProject.WebUI.Dtos.ServiceDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace HotelProject.WebUI.Controllers
 {
@@ -22,6 +23,71 @@ namespace HotelProject.WebUI.Controllers
                 var values = JsonConvert.DeserializeObject<List<ResultServiceDto>>(jsonData);
                 return View(values);
             }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddService()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddService(CreateServiceDto createServiceDto)
+        {
+            // ModelState kontrolünü kaldır
+            var jsonData = JsonConvert.SerializeObject(createServiceDto);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync("Services", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("API Error: " + errorContent);
+                return View();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeleteService(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"Services/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateService(int id)
+        {
+            var response = await _httpClient.GetAsync($"Services/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<UpdateServiceDto>(jsonData);
+                return View(values);
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateService(UpdateServiceDto updateServiceDto)
+        {
+            var jsonData = JsonConvert.SerializeObject(updateServiceDto);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync($"Services", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
 
