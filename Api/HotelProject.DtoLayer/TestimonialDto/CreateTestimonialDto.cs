@@ -21,8 +21,6 @@ namespace HotelProject.DtoLayer.TestimonialDto
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Ünvan 2 ile 50 karakter arasında olmalıdır.")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Açıklama alanı boş geçilemez.")]
-        [StringLength(500, MinimumLength = 10, ErrorMessage = "Açıklama 10 ile 500 karakter arasında olmalıdır.")]
         public string Description { get; set; }
     }
 }

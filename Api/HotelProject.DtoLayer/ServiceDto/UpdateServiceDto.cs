@@ -9,7 +9,6 @@ namespace HotelProject.DtoLayer.ServiceDto
 {
     public class UpdateServiceDto
     {
-        [Required(ErrorMessage = "Service ID boş olamaz.")]
         public int ServiceId { get; set; }
 
         [Required(ErrorMessage = "Icon alanı boş geçilemez.")]

@@ -35,19 +35,21 @@ namespace HotelProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddService(CreateServiceDto createServiceDto)
         {
-            // ModelState kontrolünü kaldır
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             var jsonData = JsonConvert.SerializeObject(createServiceDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync("Services", content);
-            if (!response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("API Error: " + errorContent);
-                return View();
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index");
+            return View();
+
         }
 
         public async Task<IActionResult> DeleteService(int id)
@@ -78,6 +80,10 @@ namespace HotelProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateService(UpdateServiceDto updateServiceDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             var jsonData = JsonConvert.SerializeObject(updateServiceDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 

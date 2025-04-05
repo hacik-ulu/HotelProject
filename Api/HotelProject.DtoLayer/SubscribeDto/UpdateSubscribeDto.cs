@@ -9,7 +9,6 @@ namespace HotelProject.DtoLayer.SubscribeDto
 {
     public class UpdateSubscribeDto
     {
-        [Required(ErrorMessage = "Abonelik Id boş olamaz.")]
         public int SubscribeId { get; set; }
 
         [Required(ErrorMessage = "E-posta alanı boş geçilemez.")]

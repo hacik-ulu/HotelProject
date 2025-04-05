@@ -18,12 +18,12 @@ namespace HotelProject.DtoLayer.StaffDto
         public string Title { get; set; }
 
         [StringLength(150, ErrorMessage = "Sosyal medya ikonu en fazla 150 karakter olabilir.")]
-        public string SocialMediaIcon1 { get; set; }
+        public string? SocialMediaIcon1 { get; set; }
 
         [StringLength(150, ErrorMessage = "Sosyal medya ikonu en fazla 150 karakter olabilir.")]
-        public string SocialMediaIcon2 { get; set; }
+        public string? SocialMediaIcon2 { get; set; }
 
         [StringLength(150, ErrorMessage = "Sosyal medya ikonu en fazla 150 karakter olabilir.")]
-        public string SocialMediaIcon3 { get; set; }
+        public string? SocialMediaIcon3 { get; set; }
     }
 }
