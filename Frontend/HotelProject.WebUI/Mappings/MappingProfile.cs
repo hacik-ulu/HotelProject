@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelProject.EntityLayer.Concrete;
+using HotelProject.WebUI.Dtos.RegisterDtos;
 using HotelProject.WebUI.Dtos.ServiceDtos;
 using HotelProject.WebUI.Dtos.StaffDtos;
 using HotelProject.WebUI.Dtos.TestimonialDtos;
@@ -24,6 +25,8 @@ namespace HotelProject.WebUI.Mapping
             CreateMap<Testimonial, CreateTestimonialDto>().ReverseMap();
             CreateMap<Testimonial, ResultTestimonialDto>().ReverseMap();
             CreateMap<Testimonial, UpdateTestimonialDto>().ReverseMap();
+
+            CreateMap<CreateNewUserDto, AppUser>().ReverseMap();
 
         }
     }

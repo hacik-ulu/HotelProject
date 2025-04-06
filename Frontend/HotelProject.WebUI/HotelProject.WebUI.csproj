@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.36" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.36" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.36">
 			<PrivateAssets>all</PrivateAssets>
@@ -19,15 +20,20 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.36" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.18" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Models\" />
+	  <ProjectReference Include="..\..\Api\HotelProject.BusinessLayer\HotelProject.BusinessLayer.csproj" />
+	  <ProjectReference Include="..\..\Api\HotelProject.DataAccessLayer\HotelProject.DataAccessLayer.csproj" />
+	  <ProjectReference Include="..\..\Api\HotelProject.DtoLayer\HotelProject.DtoLayer.csproj" />
+	  <ProjectReference Include="..\..\Api\HotelProject.EntityLayer\HotelProject.EntityLayer.csproj" />
+	  <ProjectReference Include="..\..\Api\HotelProject.WebApi\HotelProject.WebApi.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Api\HotelProject.EntityLayer\HotelProject.EntityLayer.csproj" />
+	  <Folder Include="Models\" />
 	</ItemGroup>
 
 </Project>

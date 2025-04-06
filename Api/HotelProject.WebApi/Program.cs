@@ -1,17 +1,18 @@
 using HotelProject.DataAccessLayer.Concrete.Database;
 using HotelProject.WebApi.Extensions;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using static HotelProject.DataAccessLayer.Concrete.Database.DbContextServiceExt;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<Context>();
 
 // CORS Policy
 builder.Services.AddCustomCors();
 
 // Add services to the container.
-builder.Services.AddDbContextServices(builder.Configuration);
 builder.Services.AddBusinessServices(builder.Configuration);
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());  
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 
 builder.Services.AddControllers();
