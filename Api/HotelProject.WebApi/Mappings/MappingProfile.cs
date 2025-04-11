@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HotelProject.DtoLayer.AboutDto;
 using HotelProject.DtoLayer.Room;
 using HotelProject.DtoLayer.ServiceDto;
 using HotelProject.DtoLayer.StaffDto;
@@ -36,6 +37,11 @@ namespace HotelProject.WebApi.Mappings
             CreateMap<Testimonial, CreateTestimonialDto>().ReverseMap();
             CreateMap<Testimonial, ResultTestimonialDto>().ReverseMap();
             CreateMap<Testimonial, UpdateTestimonialDto>().ReverseMap();
+
+            // About Mapping
+            CreateMap<About, CreateAboutDto>().ReverseMap();
+            CreateMap<About, ResultAboutDto>().ReverseMap();
+            CreateMap<About, UpdateAboutDto>().ReverseMap();
         }
     }
 }
