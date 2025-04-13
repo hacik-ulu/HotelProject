@@ -22,6 +22,11 @@ namespace HotelProject.BusinessLayer.Concrete
             _bookingDal.Add(entity);
         }
 
+        public void TBookingStatusChangeApproved(int id)
+        {
+            _bookingDal.BookingStatusChangeApproved(id);
+        }
+
         public void TDelete(Booking entity)
         {
             _bookingDal.Delete(entity);

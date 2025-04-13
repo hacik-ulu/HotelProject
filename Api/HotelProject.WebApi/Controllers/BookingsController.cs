@@ -62,5 +62,12 @@ namespace HotelProject.WebApi.Controllers
             _bookingService.TDelete(values);
             return Ok("Rezervasyon başarıyla silindi!");
         }
+
+        [HttpPut("ChangeBookingStatus")]
+        public IActionResult ChangeBookingStatus(int id)
+        {
+            _bookingService.TBookingStatusChangeApproved(id);
+            return Ok("Rezervasyon durumu güncellendi");
+        }
     }
 }
