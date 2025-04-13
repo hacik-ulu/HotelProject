@@ -14,23 +14,13 @@
 
         @await Component.InvokeAsync("_NavbarComponentPartial")
 
-        @await Component.InvokeAsync("_SliderComponentPartial")
+        @await Component.InvokeAsync("_BookingCoverComponentPartial")
 
         @await Component.InvokeAsync("_ReservationComponentPartial")
 
-        @await Component.InvokeAsync("_AboutComponentPartial")
+        @await Html.PartialAsync("AddBooking.cshtml")
 
-        @await Component.InvokeAsync("_OurRoomsComponentPartial")
-
-        @await Component.InvokeAsync("_TrailerComponentPartial")
-
-        @await Component.InvokeAsync("_ServiceComponentPartial")
-
-        @await Component.InvokeAsync("_TestimonialComponentPartial")
-
-        @await Component.InvokeAsync("_TeamComponentPartial")
-
-        @await Html.PartialAsync("_SubscribeComponentPartial")
+        @await Html.PartialAsync("/Views/Default/_SubscribeComponentPartial.cshtml")
 
         @await Component.InvokeAsync("_FooterComponentPartial")
 
