@@ -9,7 +9,7 @@ namespace HotelProject.WebUI.Controllers
             return View();
         }
 
-        // Static View
+        // Static Views
         public PartialViewResult HeadPartial()
         {
             return PartialView();
