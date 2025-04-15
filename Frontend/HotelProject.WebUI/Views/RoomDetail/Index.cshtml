@@ -1,0 +1,136 @@
+﻿@model ResultRoomDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+@await Component.InvokeAsync("_HeadComponentPartial")
+
+<body style="background-color: #f4f6f9;">
+
+    <div class="container-xxl bg-white p-0 shadow-lg">
+        @await Component.InvokeAsync("_NavbarComponentPartial")
+
+        <div class="container py-5" style="max-width: 1140px;">
+
+            <div class="row">
+                <div class="col-lg-7">
+                    <img src="@Model.CoverImage"
+                         alt="Oda Resmi"
+                         class="img-fluid rounded shadow-lg w-100"
+                         style="height: 420px; object-fit: cover; transition: transform 0.3s ease-in-out;" />
+                </div>
+                <div class="col-lg-5 d-flex flex-column justify-content-between">
+                    <div>
+                        <h2 class="fw-semibold text-dark mb-3" style="font-size: 2.4rem;">@Model.Title</h2>
+                        <p class="text-muted mb-2" style="font-size: 1.05rem;">Oda Numarası: <strong class="text-dark">@Model.RoomNumber</strong></p>
+                        <p class="text-dark mb-3" style="font-size: 1.1rem;">@Model.Description</p>
+                    </div>
+                    <div class="pt-2">
+                        <h4 class="text-success fw-bold" style="font-size: 1.8rem;">₺@Model.Price.ToString("N2") / gece</h4>
+                        <a href="#" class="btn btn-warning btn-lg w-100 mt-3 text-white" style="border-radius: 30px; font-size: 1.1rem;">Rezervasyon Yap</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 text-center">
+                <div class="col-md-4 mb-3">
+                    <div class="border rounded bg-light shadow-sm py-3 px-2 h-100">
+                        <div class="fs-3 mb-2">🛏️</div>
+                        <h6 class="fw-semibold text-dark mb-1" style="font-size: 1.1rem;">Yatak Sayısı</h6>
+                        <p class="fw-normal text-dark mb-0">@Model.BedCount</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="border rounded bg-light shadow-sm py-3 px-2 h-100">
+                        <div class="fs-3 mb-2">🛁</div>
+                        <h6 class="fw-semibold text-dark mb-1" style="font-size: 1.1rem;">Banyo Sayısı</h6>
+                        <p class="fw-normal text-dark mb-0">@Model.BathCount</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="border rounded bg-light shadow-sm py-3 px-2 h-100">
+                        <div class="fs-3 mb-2">📶</div>
+                        <h6 class="fw-semibold text-dark mb-1" style="font-size: 1.1rem;">Wifi</h6>
+                        <p class="fw-normal text-dark mb-0">@Model.Wifi</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="p-4 rounded shadow-sm bg-white border">
+                        <h4 class="mb-3 fw-bold text-dark" style="font-size: 1.5rem;">Neden Bu Oda?</h4>
+                        <ul class="mb-0 ps-3" style="line-height: 1.8; font-size: 1.05rem; color: #333;">
+                            @switch (Model.RoomId)
+                            {
+                                case 2:
+                                    <li>Standart oda özellikleriyle konforu yakalayın</li>
+                                    <li>Konforlu yatak ve temel ihtiyaçlar</li>
+                                    <li>Ücretsiz yüksek hızlı WiFi</li>
+                                    <li>Her gün temizlik hizmeti</li>
+                                    <li>Uygun fiyat avantajı</li>
+                                    break;
+                                case 3:
+                                    <li>Bahçeye bakan geniş pencereler</li>
+                                    <li>Ekstra yastık ve battaniye seçenekleri</li>
+                                    <li>Geniş çalışma masası ve hızlı internet</li>
+                                    <li>Temizlik ve havlu servisi dahil</li>
+                                    <li>Çift + tek kişilik yatak kombinasyonu</li>
+                                    break;
+                                default:
+                                    <li>Lüks olanaklarla donatılmış premium oda</li>
+                                    <li>Geniş kişisel alan</li>
+                                    <li>Deniz manzaralı özel teras</li>
+                                    <li>Akıllı oda sistemleri</li>
+                                    break;
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="p-4 rounded shadow-sm bg-white border">
+                        <h4 class="mb-3 fw-bold text-dark" style="font-size: 1.5rem;">Oda Özeti</h4>
+                        <ul class="mb-0 ps-3" style="line-height: 1.8; font-size: 1.05rem; color: #333;">
+                            @switch (Model.RoomId)
+                            {
+                                case 2:
+                                    <li>Tüm temel ihtiyaçların karşılandığı sade bir konaklama</li>
+                                    <li>Geniş alan ve rahat yataklarla konforlu bir deneyim</li>
+                                    <li>İş ve eğlence için hızlı internet</li>
+                                    <li>Temiz ve düzenli bir ortam</li>
+                                    break;
+                                case 3:
+                                    <li>Doğal ışık alan pencerelerle ferah alan</li>
+                                    <li>Ekstra konfor sağlayan yastık ve battaniye</li>
+                                    <li>Çalışmaya uygun masa ve WiFi</li>
+                                    <li>Farklı yatak kombinasyonları ile aile dostu</li>
+                                    break;
+                                default:
+                                    <li>Premium mobilyalar ve modern dekor</li>
+                                    <li>Özel kontrol sistemleri ve sessiz iklimlendirme</li>
+                                    <li>En yüksek konfor için özel detaylar</li>
+                                    break;
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+            @await Component.InvokeAsync("_AboutComponentPartial")
+            <br /> <br /> <br /> <br /> <br />
+
+            @await Component.InvokeAsync("_FooterComponentPartial")
+
+    </div>
+
+</body>
+</html>
