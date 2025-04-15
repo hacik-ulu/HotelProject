@@ -4,6 +4,7 @@ using HotelProject.DataAccessLayer.Concrete.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelProject.DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20250415162848_mig-add-guest")]
+    partial class migaddguest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,7 +240,7 @@ namespace HotelProject.DataAccessLayer.Migrations
 
                     b.HasKey("GuestId");
 
-                    b.ToTable("Guests");
+                    b.ToTable("Guest");
                 });
 
             modelBuilder.Entity("HotelProject.EntityLayer.Concrete.Room", b =>
