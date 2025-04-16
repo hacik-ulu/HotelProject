@@ -5,10 +5,10 @@ using System.Text;
 
 namespace HotelProject.WebUI.Controllers
 {
-    public class ServiceController : Controller
+    public class AdminServiceController : Controller
     {
         private readonly HttpClient _httpClient;
-        public ServiceController(HttpClient httpClient, IConfiguration configuration)
+        public AdminServiceController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(configuration["ApiSettings:BaseUrl"]);

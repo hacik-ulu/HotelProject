@@ -7,10 +7,10 @@ using System.Text;
 
 namespace HotelProject.WebUI.Controllers
 {
-    public class BookingAdminController : Controller
+    public class AdminBookingController : Controller
     {
         private readonly HttpClient _httpClient;
-        public BookingAdminController(HttpClient httpClient, IConfiguration configuration)
+        public AdminBookingController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(configuration["ApiSettings:BaseUrl"]);

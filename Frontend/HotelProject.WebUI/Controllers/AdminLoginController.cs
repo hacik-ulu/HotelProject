@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace HotelProject.WebUI.Controllers
 {
-    public class LoginController : Controller
+    public class AdminLoginController : Controller
     {
         private readonly SignInManager<AppUser> _signInManager;
-        public LoginController(SignInManager<AppUser> signInManager)
+        public AdminLoginController(SignInManager<AppUser> signInManager)
         {
             _signInManager = signInManager;
         }
@@ -28,7 +28,7 @@ namespace HotelProject.WebUI.Controllers
                 var result = await _signInManager.PasswordSignInAsync(loginUserDto.Username, loginUserDto.Password, false, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Staff");
+                    return RedirectToAction("Index", "AdminStaff");
                 }
                 else
                 {

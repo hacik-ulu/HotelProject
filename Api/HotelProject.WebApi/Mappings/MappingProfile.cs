@@ -55,6 +55,7 @@ namespace HotelProject.WebApi.Mappings
             CreateMap<Contact, CreateContactDto>().ReverseMap();
             CreateMap<Contact, ResultContactDto>().ReverseMap();
             CreateMap<Contact, UpdateContactDto>().ReverseMap();
+            CreateMap<Contact, InboxContactDto>().ReverseMap();
 
             //Guest Mapping
             CreateMap<Guest, CreateGuestDto>().ReverseMap();

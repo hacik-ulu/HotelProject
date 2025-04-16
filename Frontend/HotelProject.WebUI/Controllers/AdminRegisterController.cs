@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelProject.WebUI.Controllers
 {
-    public class RegisterController : Controller
+    public class AdminRegisterController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
-        public RegisterController(UserManager<AppUser> userManager)
+        public AdminRegisterController(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }

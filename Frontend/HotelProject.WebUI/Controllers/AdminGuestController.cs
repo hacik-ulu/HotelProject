@@ -1,43 +1,48 @@
-﻿using HotelProject.WebUI.Dtos.TestimonialDtos;
+﻿using HotelProject.WebUI.Dtos.GuestDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace HotelProject.WebUI.Controllers
 {
-    public class TestimonialController : Controller
+    public class AdminGuestController : Controller
     {
         private readonly HttpClient _httpClient;
-        public TestimonialController(HttpClient httpClient, IConfiguration configuration)
+        public AdminGuestController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(configuration["ApiSettings:BaseUrl"]);
         }
+
         public async Task<IActionResult> Index()
         {
-            var response = await _httpClient.GetAsync("Testimonials");
+            var response = await _httpClient.GetAsync("Guests");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultGuestDto>>(jsonData);
                 return View(values);
             }
             return View();
         }
 
         [HttpGet]
-        public IActionResult AddTestimonial()
+        public IActionResult AddGuest()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTestimonial(CreateTestimonialDto createTestimonialDto)
+        public async Task<IActionResult> AddGuest(CreateGuestDto createGuestDto)
         {
-            var jsonData = JsonConvert.SerializeObject(createTestimonialDto);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var jsonData = JsonConvert.SerializeObject(createGuestDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("Testimonials", content);
+            var response = await _httpClient.PostAsync("Guests", content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -46,9 +51,9 @@ namespace HotelProject.WebUI.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DeleteTestimonial(int id)
+        public async Task<IActionResult> DeleteGuest(int id)
         {
-            var response = await _httpClient.DeleteAsync($"Testimonials/{id}");
+            var response = await _httpClient.DeleteAsync($"Guests/{id}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -58,13 +63,13 @@ namespace HotelProject.WebUI.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> UpdateTestimonial(int id)
+        public async Task<IActionResult> UpdateGuest(int id)
         {
-            var response = await _httpClient.GetAsync($"Testimonials/{id}");
+            var response = await _httpClient.GetAsync($"Guests/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateTestimonialDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<UpdateGuestDto>(jsonData);
                 return View(values);
             }
 
@@ -72,12 +77,16 @@ namespace HotelProject.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
+        public async Task<IActionResult> UpdateGuest(UpdateGuestDto updateGuestDto)
         {
-            var jsonData = JsonConvert.SerializeObject(updateTestimonialDto);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var jsonData = JsonConvert.SerializeObject(updateGuestDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PutAsync($"Testimonials", content);
+            var response = await _httpClient.PutAsync($"Guests", content);
 
             if (response.IsSuccessStatusCode)
             {

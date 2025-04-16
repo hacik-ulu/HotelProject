@@ -21,12 +21,13 @@ namespace HotelProject.WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult ContactList()
+        public IActionResult InboxListContact()
         {
             var values = _contactService.TGetAll();
-            var result = _mapper.Map<List<ResultContactDto>>(values);
+            var result = _mapper.Map<List<InboxContactDto>>(values);
             return Ok(result);
         }
+
 
         [HttpGet("{id}")]
         public IActionResult GetContactById(int id)
