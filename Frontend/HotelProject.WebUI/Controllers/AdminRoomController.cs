@@ -1,14 +1,14 @@
-﻿using HotelProject.WebUI.Dtos.StaffDtos;
+﻿using HotelProject.WebUI.Dtos.RoomDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace HotelProject.WebUI.Controllers
 {
-    public class StaffController : Controller
+    public class AdminRoomController : Controller
     {
         private readonly HttpClient _httpClient;
-        public StaffController(HttpClient httpClient, IConfiguration configuration)
+        public AdminRoomController(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(configuration["ApiSettings:BaseUrl"]);
@@ -16,29 +16,29 @@ namespace HotelProject.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var response = await _httpClient.GetAsync("Staffs");
+            var response = await _httpClient.GetAsync("Rooms");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultStaffDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultRoomDto>>(jsonData);
                 return View(values);
             }
             return View();
         }
 
         [HttpGet]
-        public IActionResult AddStaff()
+        public IActionResult AddRoom()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddStaff(CreateStaffDto createStaffDto)
+        public async Task<IActionResult> AddRoom(CreateRoomDto createRoomDto)
         {
-            var jsonData = JsonConvert.SerializeObject(createStaffDto);
+            var jsonData = JsonConvert.SerializeObject(createRoomDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("Staffs", content);
+            var response = await _httpClient.PostAsync("Rooms", content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -47,9 +47,9 @@ namespace HotelProject.WebUI.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DeleteStaff(int id)
+        public async Task<IActionResult> DeleteRoom(int id)
         {
-            var response = await _httpClient.DeleteAsync($"Staffs/{id}");
+            var response = await _httpClient.DeleteAsync($"Rooms/{id}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -59,13 +59,13 @@ namespace HotelProject.WebUI.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> UpdateStaff(int id)
+        public async Task<IActionResult> UpdateRoom(int id)
         {
-            var response = await _httpClient.GetAsync($"Staffs/{id}");
+            var response = await _httpClient.GetAsync($"Rooms/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateStaffDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<UpdateRoomDto>(jsonData);
                 return View(values);
             }
 
@@ -73,12 +73,12 @@ namespace HotelProject.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateStaff(UpdateStaffDto updateStaffDto)
+        public async Task<IActionResult> UpdateRoom(UpdateRoomDto updateRoomDto)
         {
-            var jsonData = JsonConvert.SerializeObject(updateStaffDto);
+            var jsonData = JsonConvert.SerializeObject(updateRoomDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PutAsync($"Staffs", content);
+            var response = await _httpClient.PutAsync($"Rooms", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -87,5 +87,6 @@ namespace HotelProject.WebUI.Controllers
 
             return View();
         }
+
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace HotelProject.DtoLayer.Room
+namespace HotelProject.WebUI.Dtos.RoomDtos
 {
     public class UpdateRoomDto
     {
@@ -21,7 +16,7 @@ namespace HotelProject.DtoLayer.Room
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "Lütfen oda başlığı bilgisi giriniz")]
-        [StringLength(100,ErrorMessage ="Lütfen en fazla 100 karakter veri girişi yapın.")]
+        [StringLength(100, ErrorMessage = "Lütfen en fazla 100 karakter veri girişi yapın.")]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Lütfen yatak sayısı giriniz")]
