@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelProject.BusinessLayer.Abstract;
+using HotelProject.DtoLayer.ContactDto;
 using HotelProject.DtoLayer.SendMessageDto;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
@@ -67,6 +68,15 @@ namespace HotelProject.WebApi.Controllers
             _sendMessageService.TDelete(values);
             return Ok("Mesaj başarıyla silindi.");
         }
+
+        [HttpGet("GetSendMessage/{id}")]
+        public IActionResult GetSendMessage(int id)
+        {
+            var values = _sendMessageService.TGetById(id);
+            var result = _mapper.Map<GetMessageByIdDto>(values);
+            return Ok(result);
+        }
+
     }
 
 }

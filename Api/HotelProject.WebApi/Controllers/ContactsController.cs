@@ -70,5 +70,13 @@ namespace HotelProject.WebApi.Controllers
             _contactService.TDelete(value);
             return Ok("İletişim bilgisi başarıyla silindi!");
         }
+
+        [HttpGet("GetSendMessage/{id}")]
+        public IActionResult GetSendMessage(int id)
+        {
+            var values = _contactService.TGetById(id);
+            var result = _mapper.Map<InboxContactDto>(values); 
+            return Ok(result);
+        }
     }
 }

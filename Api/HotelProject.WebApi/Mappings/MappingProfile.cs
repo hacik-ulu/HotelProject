@@ -67,6 +67,7 @@ namespace HotelProject.WebApi.Mappings
             CreateMap<SendMessage, CreateSendMessageDto>().ReverseMap();
             CreateMap<SendMessage, ResultSendMessageDto>().ReverseMap();
             CreateMap<SendMessage, UpdateSendMessageDto>().ReverseMap();
+            CreateMap<SendMessage, GetMessageByIdDto>().ReverseMap();
         }
     }
 }
