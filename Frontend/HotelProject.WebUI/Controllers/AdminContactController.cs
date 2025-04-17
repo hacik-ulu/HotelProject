@@ -1,6 +1,8 @@
-﻿using HotelProject.WebUI.Dtos.ContactDtos;
+﻿using HotelProject.DtoLayer.SendMessageDto;
+using HotelProject.WebUI.Dtos.ContactDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace HotelProject.WebUI.Controllers
 {
@@ -24,6 +26,40 @@ namespace HotelProject.WebUI.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public IActionResult AddSendMessage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSendMessage(CreateSendMessageDto createSendMessageDto)
+        {
+            createSendMessageDto.SenderEmail = "admin@gmail.com";
+            createSendMessageDto.SenderName = "admin";
+            createSendMessageDto.Date = DateTime.Parse(DateTime.Now.ToShortDateString());
+
+            ModelState.Clear();
+            TryValidateModel(createSendMessageDto);
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var jsonData = JsonConvert.SerializeObject(createSendMessageDto);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync("SendMessages", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("SendBox");
+            }
+
+            return View();
+        }
+
 
         public PartialViewResult SideBarAdminContactPartial()
         {
