@@ -1,6 +1,8 @@
-﻿using HotelProject.WebUI.Dtos.ContactDtos;
+﻿using HotelProject.DtoLayer.MessageCategoryDto;
+using HotelProject.WebUI.Dtos.ContactDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -16,10 +18,27 @@ namespace HotelProject.WebUI.Controllers
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(configuration["ApiSettings:BaseUrl"]);
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var response = await _httpClient.GetAsync("MessageCategories");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultMessageCategoryDto>>(jsonData);
+                var selectList = values?.Select(x => new SelectListItem
+                {
+                    Text = x.MessageCategoryName,
+                    Value = x.MessageCategoryId.ToString()
+                }).ToList();
+
+                ViewBag.MessageCategories = selectList;
+
+                return View();
+            }
             return View();
         }
+
+
 
         [HttpGet]
         public PartialViewResult SendMessage()
@@ -30,7 +49,7 @@ namespace HotelProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> SendMessage(CreateContactDto createContactDto)
         {
-            createContactDto.Date = DateTime.Parse(DateTime.Now.ToShortDateString());
+            createContactDto.Date = DateTime.Now; 
 
             var jsonData = JsonConvert.SerializeObject(createContactDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -39,10 +58,15 @@ namespace HotelProject.WebUI.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                TempData["Message"] = "Mesajınız başarıyla gönderildi!";
+                TempData["MessageType"] = "success"; 
                 return RedirectToAction("Index", "Default");
             }
 
+            TempData["Message"] = "Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.";
+            TempData["MessageType"] = "error"; 
             return View();
         }
+
     }
 }

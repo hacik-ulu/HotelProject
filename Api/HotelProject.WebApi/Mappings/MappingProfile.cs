@@ -3,6 +3,7 @@ using HotelProject.DtoLayer.AboutDto;
 using HotelProject.DtoLayer.BookingDto;
 using HotelProject.DtoLayer.ContactDto;
 using HotelProject.DtoLayer.GuestDto;
+using HotelProject.DtoLayer.MessageCategoryDto;
 using HotelProject.DtoLayer.Room;
 using HotelProject.DtoLayer.SendMessageDto;
 using HotelProject.DtoLayer.ServiceDto;
@@ -68,6 +69,12 @@ namespace HotelProject.WebApi.Mappings
             CreateMap<SendMessage, ResultSendMessageDto>().ReverseMap();
             CreateMap<SendMessage, UpdateSendMessageDto>().ReverseMap();
             CreateMap<SendMessage, GetMessageByIdDto>().ReverseMap();
+
+
+            //MessageCategory
+            CreateMap<MessageCategory, CreateMessageCategoryDto>().ReverseMap();
+            CreateMap<MessageCategory, ResultMessageCategoryDto>().ReverseMap();
+            CreateMap<MessageCategory, UpdateMessageCategoryDto>().ReverseMap();
         }
     }
 }

@@ -53,6 +53,10 @@ namespace HotelProject.WebApi.Extensions
             services.AddScoped<ISendMessageService, SendMessageManager>();
             services.AddScoped<ISendMessageDal, EfSendMessageDal>();
 
+            // MessageCategory
+            services.AddScoped<IMessageCategoryService, MessageCategoryManager>();
+            services.AddScoped<IMessageCategoryDal, EfMessageCategoryDal>();
+
             return services;
         }
     }
