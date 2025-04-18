@@ -9,10 +9,10 @@ namespace HotelProject.WebUI.Controllers
 {
 
     [AllowAnonymous]
-    public class AdminLoginController : Controller
+    public class LoginController : Controller
     {
         private readonly SignInManager<AppUser> _signInManager;
-        public AdminLoginController(SignInManager<AppUser> signInManager)
+        public LoginController(SignInManager<AppUser> signInManager)
         {
             _signInManager = signInManager;
         }

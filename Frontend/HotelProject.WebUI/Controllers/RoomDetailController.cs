@@ -1,9 +1,11 @@
 ﻿using HotelProject.WebUI.Dtos.RoomDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace HotelProject.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class RoomDetailController : Controller
     {
         private readonly HttpClient _httpClient;
