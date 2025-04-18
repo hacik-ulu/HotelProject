@@ -17,11 +17,22 @@ namespace HotelProject.WebUI.Controllers
 
         public async Task<IActionResult> Inbox()
         {
+
             var response = await _httpClient.GetAsync("Contacts");
+            var response2 = await _httpClient.GetAsync("Contacts/GetContactCount");
+            var response3 = await _httpClient.GetAsync("SendMessages/GetSendMessageCount");
+
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<InboxContactDto>>(jsonData);
+
+                var jsonData2 = await response2.Content.ReadAsStringAsync();
+                ViewBag.contactCount = jsonData2;
+
+                var jsonData3 = await response3.Content.ReadAsStringAsync();
+                ViewBag.sendMessageCount = jsonData3;
+
                 return View(values);
             }
             return View();
@@ -30,14 +41,26 @@ namespace HotelProject.WebUI.Controllers
         public async Task<IActionResult> Sendbox()
         {
             var response = await _httpClient.GetAsync("SendMessages");
+            var response2 = await _httpClient.GetAsync("Contacts/GetContactCount");
+            var response3 = await _httpClient.GetAsync("SendMessages/GetSendMessageCount");
+
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultSendboxDto>>(jsonData);
+
+                var jsonData2 = await response2.Content.ReadAsStringAsync();
+                ViewBag.contactCount = jsonData2;
+
+                var jsonData3 = await response3.Content.ReadAsStringAsync();
+                ViewBag.sendMessageCount = jsonData3;
+
                 return View(values);
             }
+
             return View();
         }
+
 
 
 

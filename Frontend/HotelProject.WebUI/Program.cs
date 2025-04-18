@@ -21,7 +21,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-    options.LoginPath = "/AdminLogin/Index/";
+    options.LoginPath = "/Login/Index/";
 });
 
 var app = builder.Build();
