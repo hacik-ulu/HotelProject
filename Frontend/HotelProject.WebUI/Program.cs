@@ -11,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddCustomHttpClient();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+
+
 builder.Services.AddDbContext<Context>();
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
 

@@ -1,0 +1,48 @@
+﻿@model AdminMailViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Mail Gönder</h4>
+        </div>
+        <div class="card-body">
+            @if (TempData["MailSuccess"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @TempData["MailSuccess"]
+                </div>
+            }
+
+            @if (TempData["MailError"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["MailError"]
+                </div>
+            }
+
+            <form method="post">
+                <div class="form-group mb-3">
+                    <label>Alıcı Mail Adresi</label>
+                    <input type="email" class="form-control" asp-for="ReceiverName" required />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Konu</label>
+                    <input type="text" class="form-control" asp-for="Subject" required />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Mesajınız</label>
+                    <textarea class="form-control" style="min-height: 150px; resize:no;" rows="6" asp-for="Body" required ></textarea>
+                </div>
+
+                <button class="btn btn-primary">Maili Gönder</button>
+
+            </form>
+        </div>
+    </div>
+</div>
