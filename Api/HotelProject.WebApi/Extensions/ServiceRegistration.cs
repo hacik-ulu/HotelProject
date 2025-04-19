@@ -57,6 +57,10 @@ namespace HotelProject.WebApi.Extensions
             services.AddScoped<IMessageCategoryService, MessageCategoryManager>();
             services.AddScoped<IMessageCategoryDal, EfMessageCategoryDal>();
 
+            // WorkLocation
+            services.AddScoped<IWorkLocationService, WorkLocationManager>();
+            services.AddScoped<IWorkLocationDal, EfWorkLocationDal>();
+
             return services;
         }
     }

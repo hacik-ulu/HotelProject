@@ -10,6 +10,7 @@ using HotelProject.DtoLayer.ServiceDto;
 using HotelProject.DtoLayer.StaffDto;
 using HotelProject.DtoLayer.SubscribeDto;
 using HotelProject.DtoLayer.TestimonialDto;
+using HotelProject.DtoLayer.WorkLocationDto;
 using HotelProject.EntityLayer.Concrete;
 
 namespace HotelProject.WebApi.Mappings
@@ -70,11 +71,15 @@ namespace HotelProject.WebApi.Mappings
             CreateMap<SendMessage, UpdateSendMessageDto>().ReverseMap();
             CreateMap<SendMessage, GetMessageByIdDto>().ReverseMap();
 
-
             //MessageCategory
             CreateMap<MessageCategory, CreateMessageCategoryDto>().ReverseMap();
             CreateMap<MessageCategory, ResultMessageCategoryDto>().ReverseMap();
             CreateMap<MessageCategory, UpdateMessageCategoryDto>().ReverseMap();
+
+            //WorkLocation
+            CreateMap<WorkLocation, CreateWorkLocationDto>().ReverseMap();
+            CreateMap<WorkLocation, ResultWorkLocationDto>().ReverseMap();
+            CreateMap<WorkLocation, UpdateWorkLocationDto>().ReverseMap();
         }
     }
 }
