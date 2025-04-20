@@ -61,6 +61,10 @@ namespace HotelProject.WebApi.Extensions
             services.AddScoped<IWorkLocationService, WorkLocationManager>();
             services.AddScoped<IWorkLocationDal, EfWorkLocationDal>();
 
+            // AppUser
+            services.AddScoped<IAppUserService, AppUserManager>();
+            services.AddScoped<IAppUserDal, EfAppUserDal>();
+
             return services;
         }
     }

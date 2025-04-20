@@ -1,21 +1,30 @@
 ﻿using HotelProject.EntityLayer.Concrete;
+using HotelProject.WebUI.Dtos.AppUserDtos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace HotelProject.WebUI.Controllers
 {
     public class AdminUsersController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        public AdminUsersController(UserManager<AppUser> userManager)
+        private readonly HttpClient _httpClient;
+        public AdminUsersController(HttpClient httpClient, IConfiguration configuration)
         {
-            _userManager = userManager;
+            _httpClient = httpClient;
+            _httpClient.BaseAddress = new Uri(configuration["ApiSettings:BaseUrl"]);
         }
-
-        public IActionResult UserList()
+        public async Task<IActionResult> UserList()
         {
-            var values = _userManager.Users.ToList();
-            return View(values);
+            var response = await _httpClient.GetAsync("AppUsers");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultAppUserListDto>>(jsonData);
+                return View(values);
+            }
+            return View();
         }
     }
 }
+

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelProject.DtoLayer.AboutDto;
+using HotelProject.DtoLayer.AppUserDto;
 using HotelProject.DtoLayer.BookingDto;
 using HotelProject.DtoLayer.ContactDto;
 using HotelProject.DtoLayer.GuestDto;
@@ -80,6 +81,8 @@ namespace HotelProject.WebApi.Mappings
             CreateMap<WorkLocation, CreateWorkLocationDto>().ReverseMap();
             CreateMap<WorkLocation, ResultWorkLocationDto>().ReverseMap();
             CreateMap<WorkLocation, UpdateWorkLocationDto>().ReverseMap();
+
+            CreateMap<ResultAppUserListDto, AppUser>().ReverseMap();
         }
     }
 }
