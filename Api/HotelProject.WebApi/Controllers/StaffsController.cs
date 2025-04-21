@@ -66,5 +66,12 @@ namespace HotelProject.WebApi.Controllers
             _staffService.TDelete(values);
             return Ok("İşçi bilgileri başarıyla silindi");
         }
+
+        [HttpGet("Last4Staff")]
+        public IActionResult Last4Staff()
+        {
+            var values = _staffService.TLast4Staff();
+            return Ok(values);
+        }
     }
 }

@@ -20,6 +20,11 @@ namespace HotelProject.DataAccessLayer.Concrete.EntityFramework
             _context = context;
         }
 
+        public int GetAppUserCount()
+        {
+            return _context.Users.Count();
+        }
+
         public List<ResultAppUserListDto> UserListWithWorkLocation()
         {
             var result = _context.Users
