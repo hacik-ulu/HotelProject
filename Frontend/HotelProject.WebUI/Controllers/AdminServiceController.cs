@@ -80,10 +80,6 @@ namespace HotelProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateService(UpdateServiceDto updateServiceDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
             var jsonData = JsonConvert.SerializeObject(updateServiceDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 

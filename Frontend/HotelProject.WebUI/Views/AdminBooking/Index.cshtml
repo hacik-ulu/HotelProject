@@ -18,7 +18,6 @@
                 <th>İptal Et</th>
                 <th>Beklet</th>
                 <th>Güncelle</th>
-                <th>Detaylar</th>
             </tr>
         </thead>
         <tbody>
@@ -32,16 +31,33 @@
                     <td>@(((DateTime)item.CheckOut).ToString("dd-MMM-yyyy"))</td>
                     <td><span class="badge badge-primary px-2">@item.Status</span></td>
                     <td>
-                        @using (Html.BeginForm("ApprovedReservation", "BookingAdmin", FormMethod.Post))
+                        @using (Html.BeginForm("ApprovedReservation", "AdminBooking", FormMethod.Post))
                         {
                             <input type="hidden" name="BookingId" value="@item.BookingId" />
                             <button type="submit" class="btn btn-outline-primary">Onayla</button>
                         }
                     </td>
-                    <td><a href="/BookingAdmin/CancelReservation/@item.BookingId" class="btn btn-outline-danger">İptal Et</a></td>
-                    <td><a href="/BookingAdmin/WaitReservation/@item.BookingId" class="btn btn-outline-warning">Beklet</a></td>
-                    <td><a href="/BookingAdmin/UpdateBooking/@item.BookingId" class="btn btn-outline-info">Güncelle</a></td>
-                    <td><a href="/BookingAdmin/UpdateBooking/@item.BookingId" class="btn btn-outline-dark">Detaylar</a></td>
+                    <td>
+                        @using (Html.BeginForm("CancelReservation", "AdminBooking", FormMethod.Post))
+                        {
+                            <input type="hidden" name="BookingId" value="@item.BookingId" />
+                            <button type="submit" class="btn btn-outline-danger">İptal Et</button>
+                        }
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("BookingWait", "AdminBooking", FormMethod.Post))
+                        {
+                            <input type="hidden" name="bookingId" value="@item.BookingId" />
+                            <button type="submit" class="btn btn-outline-warning">Beklet</button>
+                        }
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("UpdateBooking", "AdminBooking", FormMethod.Get))
+                        {
+                            <input type="hidden" name="id" value="@item.BookingId" />
+                            <button type="submit" class="btn btn-outline-info">Güncelle</button>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
