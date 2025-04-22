@@ -1,4 +1,29 @@
-﻿<div class="container-fluid bg-dark px-0">
+﻿@using Microsoft.AspNetCore.Identity
+@using HotelProject.EntityLayer.Concrete
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@{
+    var isAuthenticated = SignInManager.IsSignedIn(User);
+    string fullName = "";
+    string imageUrl = Url.Content("~/profiles/user-avatar.png"); // default resim
+    string role = "";
+
+    if (isAuthenticated)
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var roles = await UserManager.GetRolesAsync(user);
+
+        fullName = $"{user.Name} {user.Surname}";
+        if (!string.IsNullOrEmpty(user.ImageUrl))
+        {
+            imageUrl = Url.Content(user.ImageUrl);
+        }
+        role = roles.FirstOrDefault();
+    }
+}
+
+<div class="container-fluid bg-dark px-0">
     <div class="row gx-0">
         <div class="col-lg-3 bg-dark d-none d-lg-block">
             <a href="/Default/Index/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
@@ -19,16 +44,16 @@
                 </div>
                 <div class="col-lg-5 px-5 text-end">
                     <div class="d-inline-flex align-items-center py-2">
-                        <a class="me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="me-3" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="me-3" href=""><i class="fab fa-linkedin-in"></i></a>
-                        <a class="me-3" href=""><i class="fab fa-instagram"></i></a>
-                        <a class="" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="me-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="me-3" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="me-3" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="me-3" href="#"><i class="fab fa-instagram"></i></a>
+                        <a class="" href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                <a href="index.html" class="navbar-brand d-block d-lg-none">
+                <a href="/Default/Index/" class="navbar-brand d-block d-lg-none">
                     <h1 class="m-0 text-primary text-uppercase">Novastay</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -39,8 +64,29 @@
                         <a href="/Default/Index/" class="nav-item nav-link active">Ana Sayfa</a>
                         <a href="/Booking/Index/" class="nav-item nav-link">Rezervasyon</a>
                         <a href="/Contact/Index/" class="nav-item nav-link">İletişim</a>
-                        <a href="contact.html" class="nav-item nav-link">Destek</a>
-                        <a href="/Login/Index/" class="nav-item nav-link">Giriş Yap</a>
+                        <a href="#" class="nav-item nav-link">Destek</a>
+                    </div>
+
+                    <div class="navbar-nav ms-auto py-0 d-flex align-items-center me-3">
+                        @if (isAuthenticated && role == "Member")
+                        {
+                            <div class="dropdown">
+                                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="@imageUrl" alt="profil" width="32" height="32" class="rounded-circle me-2" />
+                                    <strong>@fullName</strong>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark text-small shadow" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="/Profile/Index/">Kişisel Bilgiler</a></li>
+                                    <li><a class="dropdown-item" href="/Reservation/MyReservations/">Rezervasyonlarım</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Login/LogOut/">Çıkış Yap</a></li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="/Login/Index/" class="nav-item nav-link">Giriş Yap</a>
+                        }
                     </div>
                 </div>
             </nav>

@@ -1,6 +1,8 @@
-﻿using HotelProject.WebUI.Dtos.ServiceDtos;
+﻿using HotelProject.EntityLayer.Concrete;
+using HotelProject.WebUI.Dtos.ServiceDtos;
 using HotelProject.WebUI.Dtos.SubscribeDto;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -12,15 +14,33 @@ namespace HotelProject.WebUI.Controllers
     public class DefaultController : Controller
     {
         private readonly HttpClient _httpClient;
-        public DefaultController(HttpClient httpClient, IConfiguration configuration)
+        private readonly UserManager<AppUser> _userManager;
+
+        public DefaultController(HttpClient httpClient, IConfiguration configuration, UserManager<AppUser> userManager)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(configuration["ApiSettings:BaseUrl"]);
+            _userManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var userName = User.Identity.Name;
+
+            if (string.IsNullOrEmpty(userName))
+                return RedirectToAction("Index", "Login");
+
+            var user = await _userManager.FindByNameAsync(userName);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            ViewBag.Name = user.Name;
+            ViewBag.Surname = user.Surname;
+            ViewBag.ImageUrl = user.ImageUrl;
+            ViewBag.Role = roles.FirstOrDefault(); // Rolü al
+
             return View();
         }
+
+
 
         [HttpGet]
         public PartialViewResult _SubscribeComponentPartial()

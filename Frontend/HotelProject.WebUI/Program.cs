@@ -1,46 +1,48 @@
-using HotelProject.WebUI.Extensions;
-using System.Reflection;
 using HotelProject.DataAccessLayer.Concrete.Database;
 using HotelProject.EntityLayer.Concrete;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
+using HotelProject.WebUI.Extensions;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddCustomHttpClient();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddDbContext<Context>();
-builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
 
-builder.Services.AddMvcWithAuthorization();
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<Context>()
+    .AddDefaultTokenProviders();
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); 
+    options.SlidingExpiration = true;
     options.LoginPath = "/Login/Index/";
+    options.AccessDeniedPath = "/Login/AccessDenied";
 });
+
+builder.Services.AddMvcWithAuthorization(); 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-app.UseStaticFiles();
-app.UseAuthentication();
 
-
-app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404/", "?code={0}");
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404/", "?code={0}");
 
 app.MapControllerRoute(
     name: "default",

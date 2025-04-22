@@ -1,0 +1,76 @@
+﻿@model HotelProject.EntityLayer.Concrete.AppUser
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+@await Component.InvokeAsync("_HeadComponentPartial")
+
+<body>
+    <div class="container-xxl bg-white p-0">
+
+        @await Component.InvokeAsync("_SpinnerComponentPartial")
+
+        @await Component.InvokeAsync("_NavbarComponentPartial")
+
+        <div class="container mt-5">
+            <div class="card shadow rounded-4">
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-4 mb-md-0">
+                            <img src="@Url.Content(Model.ImageUrl ?? "~/profiles/user-avatar.png")"
+                                 class="img-fluid rounded-circle shadow"
+                                 style="width: 180px; height: 180px; object-fit: cover;"
+                                 alt="Profil Fotoğrafı" />
+                            <h5 class="mt-3">@Model.Name @Model.Surname</h5>
+                            <span class="text-muted">@Model.UserName</span>
+                        </div>
+                        <div class="col-md-8">
+                            <h4 class="mb-3">Kullanıcı Bilgileri</h4>
+                            <table class="table table-bordered table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Ad</th>
+                                        <td>@Model.Name</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Soyad</th>
+                                        <td>@Model.Surname</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Kullanıcı Adı</th>
+                                        <td>@Model.UserName</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Email</th>
+                                        <td>@Model.Email</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <a href="/Profile/Update" class="btn btn-primary rounded-pill px-4 d-inline-flex align-items-center">
+                                <i class="fas fa-save me-2"></i> Güncelle
+                            </a>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @await Html.PartialAsync("/Views/Default/_SubscribeComponentPartial.cshtml")
+
+        @await Component.InvokeAsync("_FooterComponentPartial")
+
+    </div>
+
+    @await Component.InvokeAsync("_ScriptComponentPartial")
+
+</body>
+
+</html>

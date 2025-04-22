@@ -12,9 +12,11 @@ namespace HotelProject.WebUI.Controllers
     public class LoginController : Controller
     {
         private readonly SignInManager<AppUser> _signInManager;
-        public LoginController(SignInManager<AppUser> signInManager)
+        private readonly UserManager<AppUser> _userManager;
+        public LoginController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -26,19 +28,44 @@ namespace HotelProject.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(LoginUserDto loginUserDto)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(loginUserDto);
+
+            var user = await _userManager.FindByNameAsync(loginUserDto.Username);
+            if (user == null)
             {
-                var result = await _signInManager.PasswordSignInAsync(loginUserDto.Username, loginUserDto.Password, false, false);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "AdminStaff");
-                }
-                else
-                {
-                    return View();
-                }
+                ModelState.AddModelError("", "Kullanıcı bulunamadı.");
+                return View(loginUserDto);
             }
-            return View();
+
+            var passwordValid = await _userManager.CheckPasswordAsync(user, loginUserDto.Password);
+            if (!passwordValid)
+            {
+                ModelState.AddModelError("", "Geçersiz şifre.");
+                return View(loginUserDto);
+            }
+
+            await _signInManager.SignInAsync(user, isPersistent: false); 
+
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles.Contains("Admin"))
+                return RedirectToAction("Index", "AdminStaff");
+
+            else if (roles.Contains("Member"))
+                return RedirectToAction("Index", "Default");
+
+            else if (roles.Contains("Visitor"))
+                return RedirectToAction("Index", "Visitor");
+
+            return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Login");
+        }
+
+
     }
 }
