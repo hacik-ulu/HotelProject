@@ -1,4 +1,5 @@
 ﻿@model CreateBookingDto
+
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -53,9 +54,9 @@
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <select class="form-select" id="select1" asp-for="AdultCount">
-                                        <option value="1">Yetişkin 1</option>
-                                        <option value="2">Yetişkin 2</option>
-                                        <option value="3">Yetişkin 3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                     <label for="select1">Yetişkin Sayısı</label>
                                 </div>
@@ -63,9 +64,9 @@
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <select class="form-select" id="select2" asp-for="ChildCount">
-                                        <option value="1">Çocuk 1</option>
-                                        <option value="2">Çocuk 2</option>
-                                        <option value="3">Çocuk 3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                     <label for="select2">Çocuk Sayısı</label>
                                 </div>
@@ -73,9 +74,9 @@
                             <div class="col-12">
                                 <div class="form-floating">
                                     <select class="form-select" id="select3" asp-for="RoomCount">
-                                        <option value="1">Oda 1</option>
-                                        <option value="2">Oda 2</option>
-                                        <option value="3">Oda 3</option>
+                                        <option value="1">101</option>
+                                        <option value="2">102</option>
+                                        <option value="3">103</option>
                                     </select>
                                     <label for="select3">Oda Sayısı</label>
                                 </div>
@@ -86,9 +87,20 @@
                                     <label for="message">Özel İstekler</label>
                                 </div>
                             </div>
+
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Rezervasyon Yap</button>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Rezervasyon Yap</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-primary w-100 py-3" type="button" onclick="window.location.href='/Login/Index'">
+                                        Giriş Yaparak Rezervasyon Yap
+                                    </button>
+                                }
                             </div>
+
                         </div>
                     </form>
                 </div>

@@ -24,21 +24,25 @@ namespace HotelProject.WebUI.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var userName = User.Identity.Name;
+            if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(User.Identity.Name))
+            {
+                var userName = User.Identity.Name;
+                var user = await _userManager.FindByNameAsync(userName);
 
-            if (string.IsNullOrEmpty(userName))
-                return RedirectToAction("Index", "Login");
+                if (user != null)
+                {
+                    var roles = await _userManager.GetRolesAsync(user);
+                    ViewBag.Name = user.Name;
+                    ViewBag.Surname = user.Surname;
+                    ViewBag.ImageUrl = user.ImageUrl;
+                    ViewBag.Role = roles.FirstOrDefault();
+                }
+            }
 
-            var user = await _userManager.FindByNameAsync(userName);
-            var roles = await _userManager.GetRolesAsync(user);
-
-            ViewBag.Name = user.Name;
-            ViewBag.Surname = user.Surname;
-            ViewBag.ImageUrl = user.ImageUrl;
-            ViewBag.Role = roles.FirstOrDefault(); // Rolü al
-
-            return View();
+            return View(); 
         }
+
+
 
 
 

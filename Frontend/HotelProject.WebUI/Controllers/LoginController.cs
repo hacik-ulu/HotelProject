@@ -55,7 +55,7 @@ namespace HotelProject.WebUI.Controllers
                 return RedirectToAction("Index", "Default");
 
             else if (roles.Contains("Visitor"))
-                return RedirectToAction("Index", "Visitor");
+                return RedirectToAction("Index", "Default");
 
             return RedirectToAction("Index", "Home");
         }
@@ -63,7 +63,7 @@ namespace HotelProject.WebUI.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Default");
         }
 
 

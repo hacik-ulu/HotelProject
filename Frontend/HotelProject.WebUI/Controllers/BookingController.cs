@@ -18,11 +18,6 @@ namespace HotelProject.WebUI.Controllers
         }
         public IActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
             return View();
         }
 
