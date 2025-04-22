@@ -37,7 +37,7 @@ namespace HotelProject.WebUI.Controllers
             var response = await _httpClient.PostAsync("Subscribes", content);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index","Default");
+                return RedirectToAction("Index", "Default");
             }
             return View();
         }
