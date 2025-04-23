@@ -40,9 +40,9 @@ This project serves as a robust foundation for real-world hotel management solut
 
 ![8](https://github.com/user-attachments/assets/5c772b73-e53e-473f-90ac-42a3ac51431d)
 
-![9](https://github.com/user-attachments/assets/166dd24c-0e83-4adc-af4e-4b316a0767c9)
+![giris-paneli](https://github.com/user-attachments/assets/3baab420-4ed5-47c1-a12c-4626dd6614ae)
 
-![10](https://github.com/user-attachments/assets/2d679ad4-1ede-4c20-8954-cbe08672d5d2)
+![kayit-paneli](https://github.com/user-attachments/assets/4e4fe894-e9be-49e5-9745-d1f24e4e6abc)
 
 ![11](https://github.com/user-attachments/assets/6c8f8a8d-45b0-4da3-abfb-4f16f2cd057e)
 
