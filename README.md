@@ -1,11 +1,11 @@
-🏨💼 HotelProject – Hotel Management System
+ ## 🏨💼 HotelProject – Hotel Management System  ##
 Project Overview
 HotelProject is a modern hotel management system designed to streamline day-to-day operations and improve overall hospitality efficiency. The application supports essential hotel functionalities such as customer registration, room booking, availability tracking, and administrative controls. Built with a microservices architecture and clean coding principles, it ensures high scalability, maintainability, and performance.
 
 This project serves as a robust foundation for real-world hotel management solutions, offering seamless integration of various technologies to provide real-time features, secure authentication, and modular services. Whether used for educational purposes or production environments, HotelProject stands out as a comprehensive and scalable hotel management solution.
 
 
-🚀🚀 Technologies Used
+ ## 🚀🚀 Technologies Used  ##
 
 - ASP.NET Core: Provides a robust and scalable framework for backend development, enabling the creation of RESTful APIs.
 - MVC (Model-View-Controller): A design pattern that separates application logic, UI, and data handling, enhancing maintainability and testability.
