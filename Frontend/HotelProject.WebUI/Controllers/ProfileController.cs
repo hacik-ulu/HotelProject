@@ -1,7 +1,9 @@
-﻿using HotelProject.EntityLayer.Concrete;
+﻿using HotelProject.DataAccessLayer.Concrete.Database;
+using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelProject.WebUI.Controllers
 {
@@ -9,9 +11,11 @@ namespace HotelProject.WebUI.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
-        public ProfileController(UserManager<AppUser> userManager)
+        private readonly Context _context;
+        public ProfileController(UserManager<AppUser> userManager, Context context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         [HttpGet]
@@ -66,7 +70,6 @@ namespace HotelProject.WebUI.Controllers
             user.Email = model.Email;
             user.ImageUrl = model.ImageUrl;
 
-            // Şifre değiştirme işlemi
             if (!string.IsNullOrEmpty(currentPassword) &&
                 !string.IsNullOrEmpty(newPassword) &&
                 !string.IsNullOrEmpty(confirmPassword))
@@ -92,7 +95,21 @@ namespace HotelProject.WebUI.Controllers
 
             if (result.Succeeded)
             {
-                ViewBag.Message = "Bilgiler başarıyla güncellendi.";
+                var fullName = $"{user.Name} {user.Surname}";
+
+                var bookings = await _context.Bookings
+                    .Where(b => b.Name == fullName || b.Email == user.Email)
+                    .ToListAsync();
+
+                foreach (var booking in bookings)
+                {
+                    booking.Name = fullName;
+                    booking.Email = user.Email;
+                }
+
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = "Bilgiler başarıyla güncellendi.";
                 return RedirectToAction("Index");
             }
 
@@ -103,6 +120,7 @@ namespace HotelProject.WebUI.Controllers
 
             return View(model);
         }
+
 
 
     }

@@ -1,0 +1,89 @@
+﻿@model List<MyReservationViewModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+@await Component.InvokeAsync("_HeadComponentPartial")
+
+<body>
+    <div class="container-xxl bg-white p-0">
+
+        @await Component.InvokeAsync("_SpinnerComponentPartial")
+
+        @await Component.InvokeAsync("_NavbarComponentPartial")
+
+        <div class="container py-5">
+            <h2 class="mb-4 text-primary">📅 Rezervasyonlarım</h2>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-warning">Hiç rezervasyonunuz bulunmamaktadır.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered shadow-sm rounded-3 overflow-hidden">
+                        <thead class="table-light">
+                            <tr class="text-center align-middle">
+                                <th>Giriş Tarihi</th>
+                                <th>Çıkış Tarihi</th>
+                                <th>Yetişkin Sayısı</th>
+                                <th>Çocuk Sayısı</th>
+                                <th>Özel İstek</th>
+                                <th>Durum</th>
+                                <th>Şehir</th>
+                                <th>Ülke</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var reservation in Model)
+                            {
+                                <tr class="text-center align-middle">
+                                    <td>@reservation.CheckIn.ToString("dd MMM yyyy")</td>
+                                    <td>@reservation.CheckOut.ToString("dd MMM yyyy")</td>
+                                    <td><span class="badge bg-info">@reservation.AdultCount</span></td>
+                                    <td><span class="badge bg-secondary">@reservation.ChildCount</span></td>
+                                    <td>@(string.IsNullOrWhiteSpace(reservation.SpecialRequest) ? "-" : reservation.SpecialRequest)</td>
+                                    <td>
+                                        <span class="badge @GetStatusBadgeClass(reservation.Status)">
+                                            @reservation.Status
+                                        </span>
+                                    </td>
+                                    <td>@reservation.City</td>
+                                    <td>@reservation.Country </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+        @await Html.PartialAsync("/Views/Default/_SubscribeComponentPartial.cshtml")
+
+        @await Component.InvokeAsync("_FooterComponentPartial")
+
+    </div>
+
+    @await Component.InvokeAsync("_ScriptComponentPartial")
+
+</body>
+
+</html>
+
+@functions {
+    private string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Onay Bekliyor" => "bg-warning text-dark",
+            "Onaylandı" => "bg-success",
+            "İptal Edildi" => "bg-danger",
+            "Müşteri Aranacak" => "bg-primary",
+            _ => "bg-secondary"
+        };
+    }
+}
